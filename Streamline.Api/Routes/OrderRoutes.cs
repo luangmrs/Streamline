@@ -4,6 +4,7 @@ using Streamline.API.Dtos;
 using Streamline.Application.Commands;
 using Streamline.Application.Queries;
 using Streamline.Domain.Enums;
+using Streamline.API.Monitoring;
 
 namespace Streamline.API.Routes
 {
@@ -35,6 +36,7 @@ namespace Streamline.API.Routes
                 };
 
                 var result = await mediator.Send(query);
+                StreamlineMetrics.OrderListRequests.Inc();
                 return Results.Ok(result);
             })
             .WithMetadata(new Swashbuckle.AspNetCore.Annotations.SwaggerOperationAttribute(
